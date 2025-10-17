@@ -1,6 +1,9 @@
 <?php
 require_once 'includes/Gradebook.php';
+require_once 'includes/Database.php';
+
 $gradebook = new GradeBook();
+$gradebook->loadFromDatabase($db);
 $students = $gradebook->getAllStudents();
 $classAverage = $gradebook->getClassAverage();
 $performanceLevels = ['All', 'Excellent', 'Good', 'Average', 'Needs Improvement', 'NA'];
