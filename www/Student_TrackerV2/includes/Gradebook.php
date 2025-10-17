@@ -115,5 +115,35 @@ class GradeBook
         }, json_decode(file_get_contents($filename, true), true));
         $this->students = $data;
     }
+
+    public function loadFromDatabase(PDO $db)
+    {
+        // Get all students
+        $studentQuery = $db->query("SELECT * FROM Students");
+        $students = [];
+
+        // Goes through each student
+        // Fetch gets one row at a time
+        while ($row = $studentQuery->fetch()) {
+            // similar to $student->toArray()["key"]
+            $studentId = $row['id'];
+            $studentName = $row['name'];
+
+            // executes a query to get all grades for student
+            $gradesQuery = $db->prepare("SELECT subject, grade FROM Grades WHERE student_id = ?");
+            $gradesQuery->execute([$studentId]);
+
+            // Loops through each grade and puts it in an associtve array
+            $grades = [];
+            while ($gradeRow = $gradesQuery->fetch()) {
+                $grades[$gradeRow['subject']] = $gradeRow['grade'];
+            }
+
+            $students[] = new Student($studentId, $studentName, $grades);
+        }
+
+        $this->students = $students;
+    }
+
 }
 ?>
