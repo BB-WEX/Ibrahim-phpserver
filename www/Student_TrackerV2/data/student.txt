@@ -1,0 +1,27 @@
+[
+  {
+    "id": "S001",
+    "name": "Alice",
+    "grades": {"Maths": 90, "English": 80}
+  },
+  {
+    "id": "S002",
+    "name": "Bob",
+    "grades": {"Maths": 75, "English": 85}
+  },
+  {
+    "id": "S003",
+    "name": "Charlie",
+    "grades": {"Maths": 88, "English": 92}
+  },
+  {
+    "id": "S004",
+    "name": "Diana",
+    "grades": {"Maths": 95, "English": 78}
+  },
+  {
+    "id": "S005",
+    "name": "Ethan",
+    "grades": {"Maths": 65, "English": 70}
+  }
+]
