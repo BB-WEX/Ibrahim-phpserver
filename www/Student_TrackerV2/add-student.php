@@ -1,6 +1,7 @@
 <?php
 require_once 'includes/Gradebook.php';
 require_once 'includes/Student.php';
+require_once 'includes/Database.php';
 
 session_start();
 if (!isset($_SESSION['subjectCount'])) {
@@ -41,7 +42,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $student = new Student(null, $name, $studentGrades);
         $gradebook->addStudent($student);
-        $gradebook->saveToFile('data\student.txt');
+        // $gradebook->saveToFile('data\student.txt');
+        $gradebook->saveToDatabase($db);
 
         // Reset
         $_SESSION["subjectCount"] = 1;

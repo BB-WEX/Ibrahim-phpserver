@@ -145,5 +145,18 @@ class GradeBook
         $this->students = $students;
     }
 
+    public function saveToDatabase(PDO $db)
+    {
+        foreach ($this->students as $student) {
+            $dataToSave = $student->toArray();
+            $studentQuery = $db->prepare("INSERT INTO Students (id, name) VALUES (?, ?) ON DUPLICATE KEY UPDATE name = VALUES(name)");
+            $studentQuery->execute([$dataToSave['id'], $dataToSave['name']]);
+            foreach ($dataToSave['grades'] as $subject => $grade) {
+                $gradeQuery = $db->prepare("INSERT INTO Grades (student_id, subject, grade) VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE grade = VALUES(grade)");
+                $gradeQuery->execute([$dataToSave['id'], $subject, $grade]);
+            }
+        }
+    }
+
 }
 ?>

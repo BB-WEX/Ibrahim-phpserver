@@ -1,8 +1,10 @@
 <?php
 require_once 'includes/Gradebook.php';
 require_once 'includes/helpers.php';
+require_once 'includes/Database.php';
 
 $gradebook = new Gradebook();
+$gradebook->loadFromDatabase($db);
 $students = $gradebook->getAllStudents();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -14,7 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $student = $gradebook->findStudentById($id);
         if ($student) {
             $student->addGrade($subject, $grade);
-            $gradebook->saveToFile("data/student.txt");
+            // $gradebook->saveToFile("data/student.txt");
+            $gradebook->saveToDatabase($db);
         }
     }
 }
