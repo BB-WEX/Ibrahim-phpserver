@@ -1,6 +1,6 @@
 services:
   php:
-    image: php:8.2-apache
+    build: .
     restart: always
     ports:
       - "80:80"
