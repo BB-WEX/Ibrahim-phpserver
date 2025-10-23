@@ -2,8 +2,10 @@
 
 require_once "includes/Gradebook.php";
 require_once "includes/helpers.php";
+require_once "includes/Database.php";
 
 $gradebook = new GradeBook();
+$gradebook->loadFromDatabase($db);
 $students = $gradebook->getAllStudents();
 $topPerformer = $gradebook->getTopPerformer();
 
